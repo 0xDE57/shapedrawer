@@ -2,8 +2,8 @@ package space.earlygrey.shapedrawer.test;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -34,11 +34,11 @@ public class GraphDrawerTest extends ApplicationAdapter {
     private GraphDrawerDrawable graphDrawerDrawable;
     
     public static void main(String[] arg) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 800;
-        config.height = 800;
-        config.samples = 4;
-        new LwjglApplication(new GraphDrawerTest(), config);
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(800, 800);
+        config.setResizable(false);
+        config.setSamples(4);
+        new Lwjgl3Application(new ShapeDrawerTest(), config);
     }
     
     @Override
