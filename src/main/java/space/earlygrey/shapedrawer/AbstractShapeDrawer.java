@@ -22,9 +22,9 @@ public abstract class AbstractShapeDrawer {
     // MEMBERS
     //================================================================================
 
-    final BatchManager batchManager;
-    float defaultLineWidth = 1;
-    boolean defaultSnap = false;
+    protected final BatchManager batchManager;
+    protected float defaultLineWidth = 1;
+    protected boolean defaultSnap = false;
 
 
     protected static final Matrix4 mat4 = new Matrix4();
@@ -50,7 +50,7 @@ public abstract class AbstractShapeDrawer {
      * @param region the texture region used for drawing. Can be changed later.
      */
 
-    AbstractShapeDrawer(Batch batch, TextureRegion region, SideEstimator sideEstimator) {
+    protected AbstractShapeDrawer(Batch batch, TextureRegion region, SideEstimator sideEstimator) {
         if (batch instanceof PolygonBatch) {
             PolygonBatchManager manager = new PolygonBatchManager((PolygonBatch) batch, region);
             filledPolygonDrawer = new PolygonBatchFilledPolygonDrawer(manager, this);
