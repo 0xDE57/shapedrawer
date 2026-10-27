@@ -18,32 +18,32 @@ public abstract class BasicShape<T extends BasicShape> {
     float color;
 
     boolean filled;
-
-    BasicShape(ShapeDrawer drawer) {
+    
+    protected BasicShape(ShapeDrawer drawer) {
         this.drawer = drawer;
     }
-
-    void reset(boolean filled) {
+    
+    protected void reset(boolean filled) {
         this.filled = filled;
         lineWidth = CONSTANT_LINE_WIDTH.width(drawer.getDefaultLineWidth());
         joinType = JoinType.POINTY;
         color = drawer.getPackedColor();
     }
-
-    void draw(Runnable drawCall) {
+    
+    protected void draw(Runnable drawCall) {
         float c = drawer.setColor(color);
         drawCall.run();
         drawer.setColor(c);
     }
-
-    void setLineWidth(float width) {
+    
+    protected void setLineWidth(float width) {
         lineWidth = CONSTANT_LINE_WIDTH.width(width);
     }
-
-    abstract T joinType(JoinType joinType);
-
-    abstract T lineWidth(float width);
-
-    abstract T color(Color color);
+    
+    protected abstract T joinType(JoinType joinType);
+    
+    protected abstract T lineWidth(float width);
+    
+    protected abstract T color(Color color);
 
 }

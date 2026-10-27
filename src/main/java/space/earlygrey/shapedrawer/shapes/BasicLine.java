@@ -21,7 +21,7 @@ public class BasicLine extends BasicShape<BasicLine> implements Line {
     }
 
     @Override
-    void reset(boolean filled) {
+    protected void reset(boolean filled) {
         super.reset(filled);
         from.setZero();
         to.setZero();

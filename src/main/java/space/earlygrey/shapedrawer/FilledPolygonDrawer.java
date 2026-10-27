@@ -14,46 +14,46 @@ import com.badlogic.gdx.utils.ShortArray;
 abstract class FilledPolygonDrawer<T extends BatchManager> extends DrawerTemplate<T> {
 
     static final EarClippingTriangulator triangulator = new EarClippingTriangulator();
-
-    FilledPolygonDrawer(T batchManager, AbstractShapeDrawer drawer) {
+    
+    protected FilledPolygonDrawer(T batchManager, AbstractShapeDrawer drawer) {
         super(batchManager, drawer);
     }
 
     abstract void polygon(float centreX, float centreY, int sides, float radiusX, float radiusY, float rotation, float startAngle, float radians, float innerColor, float outerColor);
 
     abstract void polygon(float[] vertices, short[] triangles, int trianglesCount, float offsetX, float offsetY, float scaleX, float scaleY);
-
-    void polygon(float[] vertices, short[] triangles, int trianglesCount) {
+    
+    protected void polygon(float[] vertices, short[] triangles, int trianglesCount) {
         polygon(vertices, triangles, trianglesCount, 0, 0, 1, 1);
     }
-
-    void polygon(float[] vertices) {
+    
+    protected void polygon(float[] vertices) {
         polygon(vertices, 0, vertices.length);
     }
-
-    void polygon(float[] vertices, int offset, int count) {
+    
+    protected void polygon(float[] vertices, int offset, int count) {
         ShortArray triangles = triangulator.computeTriangles(vertices, offset, count);
         polygon(vertices, triangles);
     }
-
-    void polygon(float[] vertices, ShortArray triangles) {
+    
+    protected void polygon(float[] vertices, ShortArray triangles) {
         polygon(vertices, triangles.items, triangles.size);
     }
-
-    void polygon(float[] vertices, short[] triangles) {
+    
+    protected void polygon(float[] vertices, short[] triangles) {
         polygon(vertices, triangles, triangles.length);
     }
-
-    void polygon(float[] vertices, short[] triangles, float offsetX, float offsetY) {
+    
+    protected void polygon(float[] vertices, short[] triangles, float offsetX, float offsetY) {
         polygon(vertices, triangles, triangles.length, offsetX, offsetY, 1, 1);
     }
-
-    void rectangle(float x, float y, float width, float height, float rotation) {
+    
+    protected void rectangle(float x, float y, float width, float height, float rotation) {
         float c = batchManager.floatBits;
         rectangle(x, y, width, height, rotation, c, c, c, c);
     }
-
-    void rectangle(float x, float y, float width, float height, float rotation, float c1, float c2, float c3, float c4) {
+    
+    protected void rectangle(float x, float y, float width, float height, float rotation, float c1, float c2, float c3, float c4) {
         boolean caching = batchManager.isCachingDraws();
         batchManager.ensureSpaceForQuad();
         float cos = (float) Math.cos(rotation), sin = (float) Math.sin(rotation);
@@ -82,7 +82,7 @@ abstract class FilledPolygonDrawer<T extends BatchManager> extends DrawerTemplat
         if (!caching) batchManager.pushToBatch();
     }
 
-    static class BatchFilledPolygonDrawer extends FilledPolygonDrawer<BatchManager> {
+    protected static class BatchFilledPolygonDrawer extends FilledPolygonDrawer<BatchManager> {
 
         BatchFilledPolygonDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
             super(batchManager, drawer);
@@ -184,8 +184,8 @@ abstract class FilledPolygonDrawer<T extends BatchManager> extends DrawerTemplat
             batchManager.pushToBatch();
         }
     }
-
-    static class PolygonBatchFilledPolygonDrawer extends FilledPolygonDrawer<PolygonBatchManager> {
+    
+    protected static class PolygonBatchFilledPolygonDrawer extends FilledPolygonDrawer<PolygonBatchManager> {
 
         PolygonBatchFilledPolygonDrawer(PolygonBatchManager batchManager, AbstractShapeDrawer drawer) {
             super(batchManager, drawer);

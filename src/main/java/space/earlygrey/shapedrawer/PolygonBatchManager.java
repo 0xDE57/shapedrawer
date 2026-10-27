@@ -10,8 +10,8 @@ class PolygonBatchManager extends BatchManager {
 
     protected short[] triangles;
     protected int triangleCount = 0;
-
-    PolygonBatchManager(PolygonBatch batch, TextureRegion region) {
+    
+    protected PolygonBatchManager(PolygonBatch batch, TextureRegion region) {
         super(batch, region);
         //need at least (3 * vxs) triangles
         //n quads arranged in a loop, each sharing 2 vxs with the next requires 2n vertices
@@ -28,12 +28,12 @@ class PolygonBatchManager extends BatchManager {
     }
 
     @Override
-    Drawing createDrawing() {
+    protected Drawing createDrawing() {
         return new PolygonDrawing(this);
     }
 
     @Override
-    void pushQuad() {
+    protected void pushQuad() {
         pushTriangleIndices((short) vertexCount, (short) (vertexCount+1), (short) (vertexCount+2));
         pushTriangleIndices((short) vertexCount, (short) (vertexCount+2), (short) (vertexCount+3));
         super.pushQuad();
@@ -41,7 +41,7 @@ class PolygonBatchManager extends BatchManager {
 
 
     @Override
-    void pushTriangle() {
+    protected void pushTriangle() {
         pushTriangleIndices((short) vertexCount, (short) (vertexCount+1), (short) (vertexCount+2));
         vertexCount += 3;
     }
@@ -80,7 +80,7 @@ class PolygonBatchManager extends BatchManager {
     }
 
     @Override
-    void ensureSpaceForTriangle() {
+    protected void ensureSpaceForTriangle() {
         ensureSpace(3);
     }
 
@@ -89,7 +89,7 @@ class PolygonBatchManager extends BatchManager {
      * using the currently cached vertex and triangle information.</p>
      */
     @Override
-    void pushToBatch() {
+    protected void pushToBatch() {
         if (vertexCount == 0) return;
         if (isRecording()) {
             drawing.pushVertices(verts, getVerticesArrayIndex());
@@ -102,7 +102,7 @@ class PolygonBatchManager extends BatchManager {
     }
 
     @Override
-    void increaseCacheSize(int minSize) {
+    protected void increaseCacheSize(int minSize) {
         super.increaseCacheSize(minSize);
         int trianglesLength = (int) Math.ceil(((double) verts.length / (double) VERTEX_SIZE) * 3);
         triangles = new short[trianglesLength];

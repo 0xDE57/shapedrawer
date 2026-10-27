@@ -21,7 +21,7 @@ class BasicRegularPolygon extends BasicShape<BasicRegularPolygon> implements Out
     }
 
     @Override
-    void reset(boolean filled) {
+    protected void reset(boolean filled) {
         super.reset(filled);
         centre.setZero();
         scaleX = 1;

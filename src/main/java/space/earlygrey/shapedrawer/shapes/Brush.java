@@ -10,7 +10,7 @@ public class Brush extends Utensil {
    }
 
    @Override
-   boolean filled() {
+   protected boolean filled() {
       return true;
    }
 

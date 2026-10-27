@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 class PolygonDrawer extends DrawerTemplate<BatchManager> {
 
     static final Vector2 centre = new Vector2(), radius = new Vector2();
-
-    PolygonDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
+    
+    protected PolygonDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
         super(batchManager, drawer);
     }
-
-    void polygon(float centreX, float centreY, int sides, float radiusX, float radiusY, float rotation, float lineWidth, JoinType joinType, float startAngle, float radians) {
+    
+    protected void polygon(float centreX, float centreY, int sides, float radiusX, float radiusY, float rotation, float lineWidth, JoinType joinType, float startAngle, float radians) {
         if (radians==0) return;
         radians = Math.min(radians, ShapeUtils.PI2);
 
@@ -27,8 +27,8 @@ class PolygonDrawer extends DrawerTemplate<BatchManager> {
         }
         if (!wasCaching) batchManager.endCaching();
     }
-
-    void drawPolygonNoJoin(Vector2 centre, int sides, float lineWidth, float rotation, Vector2 radius, float startAngle, float radians) {
+    
+    protected void drawPolygonNoJoin(Vector2 centre, int sides, float lineWidth, float rotation, Vector2 radius, float startAngle, float radians) {
         float angleInterval = MathUtils.PI2 / sides;
         float endAngle = startAngle + radians;
 
@@ -56,8 +56,8 @@ class PolygonDrawer extends DrawerTemplate<BatchManager> {
             }
         }
     }
-
-    void drawPolygonWithJoin(Vector2 centre, int sides, float halfLineWidth, float rotation, Vector2 radius, float startAngle, float radians, boolean smooth) {
+    
+    protected void drawPolygonWithJoin(Vector2 centre, int sides, float halfLineWidth, float rotation, Vector2 radius, float startAngle, float radians, boolean smooth) {
 
         float c = batchManager.floatBits;
 

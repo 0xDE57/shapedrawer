@@ -24,8 +24,8 @@ abstract class Utensil {
    final BasicArc ARC;
 
    final BasicTriangle TRIANGLE;
-
-   Utensil(ShapeDrawer drawer) {
+   
+   protected Utensil(ShapeDrawer drawer) {
       this.drawer = drawer;
       POLYLINE = new BasicPolyline(drawer);
       REGULAR_POLYGON = new BasicRegularPolygon(drawer);
@@ -35,8 +35,8 @@ abstract class Utensil {
       ARC = new BasicArc(drawer);
       TRIANGLE = new BasicTriangle(drawer);
    }
-
-   abstract boolean filled();
+   
+   protected abstract boolean filled();
 
    public FilledPolygon<?> polygon() {
       POLYLINE.reset(filled());

@@ -22,16 +22,16 @@ class PathDrawer extends DrawerTemplate<BatchManager> {
     private final Vector2 D0 = new Vector2(), E0 = new Vector2();
 
     private static final ConstantLineWidth CONSTANT_LINE_WIDTH = new ConstantLineWidth();
-
-    PathDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
+    
+    protected PathDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
         super(batchManager, drawer);
     }
-
-    <T extends Vector2> void path(Iterable<T> userPath, float lineWidth, JoinType joinType) {
+    
+    protected <T extends Vector2> void path(Iterable<T> userPath, float lineWidth, JoinType joinType) {
         path(userPath, lineWidth, joinType, true);
     }
-
-    <T extends Vector2> void path(Iterable<T> userPath, float lineWidth, JoinType joinType, boolean open) {
+    
+    protected <T extends Vector2> void path(Iterable<T> userPath, float lineWidth, JoinType joinType, boolean open) {
         for (Vector2 v : userPath) {
             tempPath.add(v.x, v.y);
         }
@@ -39,8 +39,8 @@ class PathDrawer extends DrawerTemplate<BatchManager> {
         path(tempPath.items, 0, tempPath.size, lineWidth, joinType, open);
         tempPath.clear();
     }
-
-    <T extends Vector2> void path(Iterable<T> userPath, JoinType joinType, boolean open, LineWidthFunction lineWidth) {
+    
+    protected <T extends Vector2> void path(Iterable<T> userPath, JoinType joinType, boolean open, LineWidthFunction lineWidth) {
         for (Vector2 v : userPath) {
             tempPath.add(v.x, v.y);
         }
@@ -48,32 +48,32 @@ class PathDrawer extends DrawerTemplate<BatchManager> {
         path(tempPath.items, 0, tempPath.size, lineWidth, joinType, open);
         tempPath.clear();
     }
-
-    void path(FloatArray userPath, LineWidthFunction lineWidth, JoinType joinType, boolean open) {
+    
+    protected void path(FloatArray userPath, LineWidthFunction lineWidth, JoinType joinType, boolean open) {
         path(userPath.items, 0, userPath.size, lineWidth, joinType, open);
     }
-
-    void path (float[] userPath, float lineWidth, JoinType joinType) {
+    
+    protected void path (float[] userPath, float lineWidth, JoinType joinType) {
         path (userPath, 0, userPath.length, lineWidth, joinType);
     }
-
-    void path (float[] userPath, float lineWidth, JoinType joinType, boolean open) {
+    
+    protected void path (float[] userPath, float lineWidth, JoinType joinType, boolean open) {
         path (userPath, 0, userPath.length, lineWidth, joinType, open);
     }
-
-    void path (float[] userPath, int start, int end, float lineWidth, JoinType joinType) {
+    
+    protected void path (float[] userPath, int start, int end, float lineWidth, JoinType joinType) {
         path(userPath, start, end, lineWidth, joinType, true);
     }
-
-    void path (float[] userPath, int start, int end, final float lineWidth, JoinType joinType, boolean open) {
+    
+    protected void path (float[] userPath, int start, int end, final float lineWidth, JoinType joinType, boolean open) {
         path(userPath, start, end, CONSTANT_LINE_WIDTH.width(lineWidth), joinType, open);
     }
-
-    void path (float[] userPath, int start, int end, LineWidthFunction lineWidth, JoinType joinType, boolean open) {
+    
+    protected void path (float[] userPath, int start, int end, LineWidthFunction lineWidth, JoinType joinType, boolean open) {
         path(userPath, start, end, lineWidth, joinType, open, 0, 0, 1, 1);
     }
-
-    void path (float[] userPath, int start, int end, LineWidthFunction lineWidth, JoinType joinType, boolean open, float offsetX, float offsetY, float scaleX, float scaleY) {
+    
+    protected void path (float[] userPath, int start, int end, LineWidthFunction lineWidth, JoinType joinType, boolean open, float offsetX, float offsetY, float scaleX, float scaleY) {
 
         if (userPath.length < 4) return;
 

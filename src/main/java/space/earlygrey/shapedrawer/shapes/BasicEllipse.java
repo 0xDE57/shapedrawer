@@ -19,7 +19,7 @@ public class BasicEllipse extends BasicShape implements OutlinedEllipse {
     }
 
     @Override
-    void reset(boolean filled) {
+    protected void reset(boolean filled) {
         super.reset(filled);
         centre.setZero();
         radiusX = 1;
