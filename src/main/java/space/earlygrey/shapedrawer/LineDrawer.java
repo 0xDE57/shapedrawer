@@ -14,34 +14,34 @@ import static space.earlygrey.shapedrawer.ShapeUtils.snap;
 class LineDrawer extends DrawerTemplate<BatchManager> {
 
     private final Vector2 l = new Vector2(), startOffset = new Vector2(), endOffset = new Vector2();
-
-    LineDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
+    
+    protected LineDrawer(BatchManager batchManager, AbstractShapeDrawer drawer) {
         super(batchManager, drawer);
     }
-
-    void line(float x1, float y1, float x2, float y2, float lineWidth, boolean snap, float c1, float c2) {
+    
+    protected void line(float x1, float y1, float x2, float y2, float lineWidth, boolean snap, float c1, float c2) {
         pushLine(x1, y1, x2, y2, lineWidth, snap, c1, c2);
         batchManager.pushToBatch();
     }
-
-    void line(float x1, float y1, float x2, float y2, float startLineWidth, float endLineWidth, boolean snap) {
+    
+    protected void line(float x1, float y1, float x2, float y2, float startLineWidth, float endLineWidth, boolean snap) {
         pushLine(x1, y1, x2, y2, startLineWidth, endLineWidth, snap, batchManager.floatBits, batchManager.floatBits);
         batchManager.pushToBatch();
     }
-
-    void pushLine(float x1, float y1, float x2, float y2, float lineWidth, boolean snap) {
+    
+    protected void pushLine(float x1, float y1, float x2, float y2, float lineWidth, boolean snap) {
         pushLine(x1, y1, x2, y2, lineWidth, snap, batchManager.floatBits, batchManager.floatBits);
     }
-
-    void pushLine(float x1, float y1, float x2, float y2, float startLineWidth, float endLineWidth, boolean snap) {
+    
+    protected void pushLine(float x1, float y1, float x2, float y2, float startLineWidth, float endLineWidth, boolean snap) {
         pushLine(x1, y1, x2, y2, startLineWidth, endLineWidth, snap, batchManager.floatBits, batchManager.floatBits);
     }
-
-    void pushLine(float x1, float y1, float x2, float y2, float lineWidth, boolean snap, float c1, float c2) {
+    
+    protected void pushLine(float x1, float y1, float x2, float y2, float lineWidth, boolean snap, float c1, float c2) {
         pushLine(x1, y1, x2, y2, lineWidth, lineWidth, snap, c1, c2);
     }
-
-    void pushLine(float x1, float y1, float x2, float y2, float startLineWidth, float endLineWidth, boolean snap, float c1, float c2) {
+    
+    protected void pushLine(float x1, float y1, float x2, float y2, float startLineWidth, float endLineWidth, boolean snap, float c1, float c2) {
 
         batchManager.ensureSpaceForQuad();
 

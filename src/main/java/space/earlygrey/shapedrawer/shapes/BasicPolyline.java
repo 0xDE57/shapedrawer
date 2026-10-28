@@ -20,14 +20,14 @@ public class BasicPolyline extends BasicShape<BasicPolyline> implements PolyLine
     boolean open;
 
     EarClippingTriangulator triangulator = new EarClippingTriangulator();
-
-    BasicPolyline(ShapeDrawer drawer) {
+    
+    protected BasicPolyline(ShapeDrawer drawer) {
         super(drawer);
         vertices = new FloatArray();
     }
 
     @Override
-    void reset(boolean filled) {
+    protected void reset(boolean filled) {
         super.reset(filled);
         vertices.clear();
         open = false;

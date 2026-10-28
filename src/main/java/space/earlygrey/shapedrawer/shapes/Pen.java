@@ -21,7 +21,7 @@ public class Pen extends Utensil {
     }
 
     @Override
-    boolean filled() {
+    protected boolean filled() {
         return false;
     }
 

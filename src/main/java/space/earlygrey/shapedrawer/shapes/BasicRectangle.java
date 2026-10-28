@@ -10,14 +10,14 @@ import space.earlygrey.shapedrawer.shapes.Shape.OutlinedRectangle;
 class BasicRectangle extends BasicShape<BasicRectangle> implements OutlinedRectangle {
 
     float x, y, width, height, rotation;
-
-
-    BasicRectangle(ShapeDrawer drawer) {
+    
+    
+    protected BasicRectangle(ShapeDrawer drawer) {
         super(drawer);
     }
 
     @Override
-    void reset(boolean filled) {
+    protected void reset(boolean filled) {
         super.reset(filled);
         x = 0;
         y = 0;

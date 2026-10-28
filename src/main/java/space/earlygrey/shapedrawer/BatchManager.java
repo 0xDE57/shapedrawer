@@ -37,8 +37,8 @@ class BatchManager {
     // These are named just for clarity
     static final int DEFAULT_VERTEX_CACHE_SIZE = 2000;
     static final int VERTEX_SIZE = 5, QUAD_PUSH_SIZE = 4 * VERTEX_SIZE;
-
-    BatchManager (Batch batch, TextureRegion region) {
+    
+    protected BatchManager (Batch batch, TextureRegion region) {
         this.batch = batch;
         verts = new float[DEFAULT_VERTEX_CACHE_SIZE];
         setTextureRegion(region);
@@ -108,7 +108,7 @@ class BatchManager {
      *
      * @return whether drawing is currently being cached
      */
-    boolean isCachingDraws() {
+    protected boolean isCachingDraws() {
         return cacheDraws;
     }
 
@@ -117,7 +117,7 @@ class BatchManager {
      * Batch with one call to {@link Batch#draw(Texture, float[], int, int)}.</p>
      * @return whether drawing was being cached before this method was called
      */
-    boolean startCaching() {
+    protected boolean startCaching() {
         boolean wasCaching = isCachingDraws();
         this.cacheDraws = true;
         return wasCaching;
@@ -126,7 +126,7 @@ class BatchManager {
     /**
      * <p>Stops caching and calls {@link Batch#draw(Texture, float[], int, int)} if anything is cached.</p>
      */
-    void endCaching() {
+    protected void endCaching() {
         this.cacheDraws = false;
         if (vertexCount>0) pushToBatch();
     }
@@ -151,32 +151,32 @@ class BatchManager {
     //================================================================================
     // RECORDING
     //================================================================================
-
-    void startRecording() {
+    
+    protected void startRecording() {
         drawing = createDrawing();
     }
-
-    Drawing createDrawing() {
+    
+    protected Drawing createDrawing() {
         return new Drawing(this);
     }
-
-    Drawing stopRecording() {
+    
+    protected Drawing stopRecording() {
         pushToBatch();
         drawing.finalise();
         Drawing returnVal = drawing;
         drawing = null;
         return returnVal;
     }
-
-    boolean isRecording() {
+    
+    protected boolean isRecording() {
         return drawing != null;
     }
 
     //================================================================================
     // DRAWING
     //================================================================================
-
-    void pushVertex() {
+    
+    protected void pushVertex() {
         vertexCount++;
     }
 
@@ -185,7 +185,7 @@ class BatchManager {
      * not currently being cached, immediately calls {@link #pushToBatch()}.</p>
      * @return whether the vertex data was pushed to the Batch
      */
-    void pushQuad() {
+    protected void pushQuad() {
         vertexCount += 4;
     }
 
@@ -194,19 +194,19 @@ class BatchManager {
      * not currently being cached, immediately calls {@link #pushToBatch()}.</p>
      * @return whether the vertex data was pushed to the Batch
      */
-    void pushTriangle() {
+    protected void pushTriangle() {
         x4(x3());
         y4(y3());
         pushQuad();
     }
-
-    void ensureSpaceForTriangle() {
+    
+    protected void ensureSpaceForTriangle() {
         ensureSpace(4);
     }
-    void ensureSpaceForQuad() {
+    protected void ensureSpaceForQuad() {
         ensureSpace(4);
     }
-    void ensureSpace(int vertices) {
+    protected void ensureSpace(int vertices) {
         if (vertices * VERTEX_SIZE > verts.length) {
             increaseCacheSize(vertices * VERTEX_SIZE);
         } else if (verticesRemaining() < vertices) {
@@ -214,8 +214,8 @@ class BatchManager {
         }
 
     }
-
-    void increaseCacheSize(int minSize) {
+    
+    protected void increaseCacheSize(int minSize) {
         pushToBatch();
         int newSize = verts.length;
         while (minSize > newSize) {
@@ -224,15 +224,15 @@ class BatchManager {
         verts = new float[newSize];
         setTextureRegionUV();
     }
-
-    int verticesRemaining() {
+    
+    protected int verticesRemaining() {
         return (verts.length - QUAD_PUSH_SIZE * vertexCount) / VERTEX_SIZE;
     }
 
     /**
      * <p>Calls {@link Batch#draw(Texture, float[], int, int)} using the currently cached vertex information.</p>
      */
-    void pushToBatch() {
+    protected void pushToBatch() {
         if (vertexCount == 0) return;
         if (isRecording()) {
             drawing.pushVertices(verts, getVerticesArrayIndex());
@@ -242,8 +242,8 @@ class BatchManager {
         }
         vertexCount = 0;
     }
-
-    int getVerticesArrayIndex() {
+    
+    protected int getVerticesArrayIndex() {
         return VERTEX_SIZE * vertexCount;
     }
 

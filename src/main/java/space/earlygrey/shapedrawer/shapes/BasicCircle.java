@@ -14,8 +14,8 @@ public class BasicCircle implements OutlinedCircle {
     protected BasicCircle(ShapeDrawer drawer) {
         ellipse = new BasicEllipse(drawer);
     }
-
-    void reset(boolean filled) {
+    
+    protected void reset(boolean filled) {
         ellipse.reset(filled);
     }
 

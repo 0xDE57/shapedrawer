@@ -21,7 +21,7 @@ public class BasicArc extends BasicShape<BasicArc> implements Arc {
     }
 
     @Override
-    void reset(boolean filled) {
+    protected void reset(boolean filled) {
         super.reset(filled);
         centre.setZero();
         radians = MathUtils.PI;

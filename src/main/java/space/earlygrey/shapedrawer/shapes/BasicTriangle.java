@@ -10,9 +10,9 @@ import space.earlygrey.shapedrawer.shapes.Shape.OutlinedTriangle;
 class BasicTriangle  extends BasicShape<BasicTriangle> implements OutlinedTriangle {
 
    Vector2 a, b, c;
-
-
-   BasicTriangle(ShapeDrawer drawer) {
+   
+   
+   protected BasicTriangle(ShapeDrawer drawer) {
       super(drawer);
       a = new Vector2();
       b = new Vector2();
@@ -20,7 +20,7 @@ class BasicTriangle  extends BasicShape<BasicTriangle> implements OutlinedTriang
    }
 
    @Override
-   void reset(boolean filled) {
+   protected void reset(boolean filled) {
       super.reset(filled);
       a.set(0, 0);
       b.set(0.5f, 1);

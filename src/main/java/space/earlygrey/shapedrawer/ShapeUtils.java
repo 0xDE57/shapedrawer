@@ -59,8 +59,8 @@ public class ShapeUtils {
     public static float angleRad (Vector2 v, Vector2 reference) {
         return (float) Math.atan2(reference.x * v.y - reference.y * v.x, v.x * reference.x + v.y * reference.y);
     }
-
-    static float pathLength(float[] path) {
+    
+    protected static float pathLength(float[] path) {
         if (path.length < 4) return 0;
         float l = 0;
         for (int i = 0; i < path.length-4; i+=2) {

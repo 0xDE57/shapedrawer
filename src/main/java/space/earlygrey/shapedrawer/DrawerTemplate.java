@@ -17,8 +17,8 @@ abstract class DrawerTemplate<T extends BatchManager> {
 
     final AbstractShapeDrawer drawer;
     final T batchManager;
-
-    DrawerTemplate(T batchManager, AbstractShapeDrawer drawer) {
+    
+    protected DrawerTemplate(T batchManager, AbstractShapeDrawer drawer) {
         this.drawer = drawer;
         this.batchManager = batchManager;
     }
@@ -31,7 +31,7 @@ abstract class DrawerTemplate<T extends BatchManager> {
      * @param D
      * @param E
      */
-    void drawSmoothJoinFill(Vector2 A, Vector2 B, Vector2 C, Vector2 D, Vector2 E, float halfLineWidth) {
+    protected void drawSmoothJoinFill(Vector2 A, Vector2 B, Vector2 C, Vector2 D, Vector2 E, float halfLineWidth) {
         batchManager.ensureSpaceForTriangle();
         boolean bendsLeft = Joiner.prepareSmoothJoin(A, B, C, D, E, halfLineWidth, false);
         vert1(bendsLeft?E:D);
@@ -42,8 +42,8 @@ abstract class DrawerTemplate<T extends BatchManager> {
         color(c,c,c);
         batchManager.pushTriangle();
     }
-
-    void drawSmoothJoinFill(Vector2 A, Vector2 B, Vector2 C, Vector2 D, Vector2 E, Vector2 offset, float cos, float sin, float halfLineWidth) {
+    
+    protected void drawSmoothJoinFill(Vector2 A, Vector2 B, Vector2 C, Vector2 D, Vector2 E, Vector2 offset, float cos, float sin, float halfLineWidth) {
         batchManager.ensureSpaceForTriangle();
         boolean bendsLeft = Joiner.prepareSmoothJoin(A, B, C, D, E, halfLineWidth, false);
         Vector2 V1 = bendsLeft?E:D, V2 = bendsLeft?D:E;
@@ -60,42 +60,42 @@ abstract class DrawerTemplate<T extends BatchManager> {
 
 
     //VERTEX SETTING UTILITY FUNCTIONS
-    void x1(float x1){batchManager.x1(x1);}
-    void y1(float y1){batchManager.y1(y1);}
-    void x2(float x2){batchManager.x2(x2);}
-    void y2(float y2){batchManager.y2(y2);}
-    void x3(float x3){batchManager.x3(x3);}
-    void y3(float y3){batchManager.y3(y3);}
-    void x4(float x4){batchManager.x4(x4);}
-    void y4(float y4){batchManager.y4(y4);}
-    void vert1(float x, float y) {x1(x);y1(y);}
-    void vert2(float x, float y) {x2(x);y2(y);}
-    void vert3(float x, float y) {x3(x);y3(y);}
-    void vert4(float x, float y) {x4(x);y4(y);}
-    void vert1(Vector2 V) {vert1(V.x, V.y);}
-    void vert2(Vector2 V) {vert2(V.x, V.y);}
-    void vert3(Vector2 V) {vert3(V.x, V.y);}
-    void vert4(Vector2 V) {vert4(V.x, V.y);}
-    void vert1(Vector2 V, Vector2 offset) {vert1(V.x+offset.x, V.y+offset.y);}
-    void vert2(Vector2 V, Vector2 offset) {vert2(V.x+offset.x, V.y+offset.y);}
-    void vert3(Vector2 V, Vector2 offset) {vert3(V.x+offset.x, V.y+offset.y);}
-    void vert4(Vector2 V, Vector2 offset) {vert4(V.x+offset.x, V.y+offset.y);}
-    void color1(float c) {batchManager.color1(c);}
-    void color2(float c) {batchManager.color2(c);}
-    void color3(float c) {batchManager.color3(c);}
-    void color4(float c) {batchManager.color4(c);}
-    void color(float c1, float c2, float c3) {
+    protected void x1(float x1){batchManager.x1(x1);}
+    protected void y1(float y1){batchManager.y1(y1);}
+    protected void x2(float x2){batchManager.x2(x2);}
+    protected void y2(float y2){batchManager.y2(y2);}
+    protected void x3(float x3){batchManager.x3(x3);}
+    protected void y3(float y3){batchManager.y3(y3);}
+    protected void x4(float x4){batchManager.x4(x4);}
+    protected void y4(float y4){batchManager.y4(y4);}
+    protected void vert1(float x, float y) {x1(x);y1(y);}
+    protected void vert2(float x, float y) {x2(x);y2(y);}
+    protected void vert3(float x, float y) {x3(x);y3(y);}
+    protected void vert4(float x, float y) {x4(x);y4(y);}
+    protected void vert1(Vector2 V) {vert1(V.x, V.y);}
+    protected void vert2(Vector2 V) {vert2(V.x, V.y);}
+    protected void vert3(Vector2 V) {vert3(V.x, V.y);}
+    protected void vert4(Vector2 V) {vert4(V.x, V.y);}
+    protected void vert1(Vector2 V, Vector2 offset) {vert1(V.x+offset.x, V.y+offset.y);}
+    protected void vert2(Vector2 V, Vector2 offset) {vert2(V.x+offset.x, V.y+offset.y);}
+    protected void vert3(Vector2 V, Vector2 offset) {vert3(V.x+offset.x, V.y+offset.y);}
+    protected void vert4(Vector2 V, Vector2 offset) {vert4(V.x+offset.x, V.y+offset.y);}
+    protected void color1(float c) {batchManager.color1(c);}
+    protected void color2(float c) {batchManager.color2(c);}
+    protected void color3(float c) {batchManager.color3(c);}
+    protected void color4(float c) {batchManager.color4(c);}
+    protected void color(float c1, float c2, float c3) {
         color1(c1); color2(c2); color3(c3);}
-    void color(float c1, float c2, float c3, float c4) {
+    protected void color(float c1, float c2, float c3, float c4) {
         color1(c1); color2(c2); color3(c3); color4(c4);}
-    float x1() {return batchManager.x1();}
-    float y1() {return batchManager.y1();}
-    float x2() {return batchManager.x2();}
-    float y2() {return batchManager.y2();}
-    float x3() {return batchManager.x3();}
-    float y3() {return batchManager.y3();}
-    float x4() {return batchManager.x4();}
-    float y4() {return batchManager.y4();}
+    protected float x1() {return batchManager.x1();}
+    protected float y1() {return batchManager.y1();}
+    protected float x2() {return batchManager.x2();}
+    protected float y2() {return batchManager.y2();}
+    protected float x3() {return batchManager.x3();}
+    protected float y3() {return batchManager.y3();}
+    protected float x4() {return batchManager.x4();}
+    protected float y4() {return batchManager.y4();}
 
 
 

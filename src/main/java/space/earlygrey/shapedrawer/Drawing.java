@@ -41,14 +41,14 @@ public class Drawing {
             getBatchManager().getBatch().draw(batchManager.r.getTexture(), applyTransformation(vertices, x, y, scaleX, scaleY), 0, vertices.length);
         }
     }
-
-    void pushVertices(float[] vertices, int count) {
+    
+    protected void pushVertices(float[] vertices, int count) {
         float[] copy = new float[count];
         System.arraycopy(vertices, 0, copy, 0, count);
         vertexBatches.add(copy);
     }
-
-    void finalise() {
+    
+    protected void finalise() {
         vertexBatches.setSize(vertexBatches.size);
         int max = 0;
         for (int i = 0; i < vertexBatches.size; i++) {
@@ -59,8 +59,8 @@ public class Drawing {
         }
         tmpVertices = new float[max];
     }
-
-    float[] applyTransformation(float[] vertices, float x, float y, float scaleX, float scaleY) {
+    
+    protected float[] applyTransformation(float[] vertices, float x, float y, float scaleX, float scaleY) {
         if (!needsTransforming(x, y, scaleX, scaleY)) {
             return vertices;
         }
@@ -73,8 +73,8 @@ public class Drawing {
         }
         return tmpVertices;
     }
-
-    boolean needsTransforming(float x, float y, float scaleX, float scaleY) {
+    
+    protected boolean needsTransforming(float x, float y, float scaleX, float scaleY) {
         return x != 0 || y != 0 || scaleX != 1 ||scaleY != 1;
     }
 
@@ -134,7 +134,7 @@ public class Drawing {
         }
 
         @Override
-        void pushVertices(float[] vertices, int count) {
+        protected void pushVertices(float[] vertices, int count) {
             super.pushVertices(vertices, count);
             short[] triangles = new short[getBatchManager().getTrianglesArrayOffset()];
             System.arraycopy(getBatchManager().triangles, 0, triangles, 0, triangles.length);
@@ -142,7 +142,7 @@ public class Drawing {
         }
 
         @Override
-        void finalise() {
+        protected void finalise() {
             super.finalise();
             triangleBatches.setSize(triangleBatches.size);
         }
